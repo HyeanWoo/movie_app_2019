@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from "prop-types";
 
 const foodILike = [
   {
     id:1,
     name: "mina1",
-    image: "https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99814B3A5BA06B1A33",
-    rating: 5
+    image: "https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99814B3A5BA06B1A33"
+  
   },
   {
     id:2,
@@ -33,23 +34,33 @@ const foodILike = [
   }
 ]
 
-function Food({ name, picture }) {
+function Food({ name, picture, rating }) {
   return (
-      <div>
+    <div>
       <h2>I like {name}</h2>
+      <h4>{rating}/5.0</h4>
       <img src={picture} alt={name}/>
-  </div>
+    </div>
   );
 }
 
-function renderFunction(dish) {
-  return <Food key={dish.id} name={dish.name} picture={dish.image} />;
+Food.propTypes = {
+  name: PropTypes.string.isRequired,
+  picture: PropTypes.string.isRequired,
+  rating: PropTypes.number
 }
 
 function App() {
   return (
     <div>
-      {foodILike.map(renderFunction)}
+      {foodILike.map(dish => (
+        <Food
+          key={dish.id}
+          name={dish.name}
+          picture={dish.image}
+          rating={dish.rating}
+        />
+      ))}
     </div>
   );
 }
